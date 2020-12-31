@@ -15,3 +15,12 @@ resource "aws_security_group" "proxysql_sg" {
     Name = "proxysql_security_group"
   }
 }
+
+resource "aws_security_group" "rds_sg" {
+  name        = "rds"
+  description = "rds instance security group"
+  vpc_id      = var.vpc
+  tags = {
+    Name = "rds_security_group"
+  }
+}
