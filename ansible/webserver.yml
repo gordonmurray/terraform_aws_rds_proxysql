@@ -6,8 +6,6 @@
   become: yes
 
   user: ubuntu
-  
+
   roles:
-    #- database
-    #- proxysql
     - webserver

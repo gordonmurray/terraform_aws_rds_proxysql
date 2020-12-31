@@ -1,0 +1,7 @@
+plugin: aws_ec2
+regions:
+  - eu-west-1
+filters:
+  tag:Name: webserver
+aws_access_key_id: 
+aws_secret_access_key: 

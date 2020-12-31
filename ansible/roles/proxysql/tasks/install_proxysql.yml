@@ -1,0 +1,30 @@
+---
+- name: Run the equivalent of "apt-get update"
+  apt:
+    update_cache: yes
+
+- name: Install pip3
+  apt:
+    pkg: python3-pip
+    state: present
+
+- name: Make sure pymysql is present
+  become: true
+  pip:
+    name: pymysql
+    state: present
+
+- name: Install a .deb package from the internet
+  apt:
+    deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+
+- name: Install ProxySQL, MySQL client, Net tools
+  vars:
+    packages:
+      - proxysql2
+      - net-tools
+      - mysql-client-core-8.0
+  apt:
+    pkg: "{{ packages }}"
+    update_cache: yes
+    state: present
