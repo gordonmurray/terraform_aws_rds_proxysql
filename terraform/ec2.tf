@@ -5,7 +5,8 @@ resource "aws_instance" "webserver" {
   subnet_id              = element(var.subnets, 1)
   key_name               = aws_key_pair.pem-key.id
   tags = {
-    Name = "webserver"
+    Name  = "webserver"
+    group = "terraform_proxy_rds"
   }
 }
 
@@ -16,6 +17,7 @@ resource "aws_instance" "proxysql" {
   subnet_id              = element(var.subnets, 1)
   key_name               = aws_key_pair.pem-key.id
   tags = {
-    Name = "proxysql"
+    Name  = "proxysql"
+    group = "terraform_proxy_rds"
   }
 }

@@ -8,11 +8,12 @@ resource "aws_db_subnet_group" "default" {
   subnet_ids = var.subnets
 
   tags = {
-    Name = "RDS subnet group"
+    Name  = "RDS subnet group"
+    group = "terraform_proxy_rds"
   }
 }
 
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "database" {
   identifier             = "my-database"
   allocated_storage      = 20
   storage_type           = "gp2"
@@ -28,4 +29,9 @@ resource "aws_db_instance" "default" {
   multi_az               = false
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   db_subnet_group_name   = aws_db_subnet_group.default.name
+
+  tags = {
+    Name  = "my-database"
+    group = "terraform_proxy_rds"
+  }
 }
