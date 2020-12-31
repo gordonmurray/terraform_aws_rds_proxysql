@@ -9,6 +9,16 @@ resource "aws_security_group_rule" "webserver_ingress_1" {
   description       = "SSH access"
 }
 
+resource "aws_security_group_rule" "webserver_ingress_2" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.webserver_sg.id
+  description       = "HTTP access"
+}
+
 resource "aws_security_group_rule" "webserver_egress_1" {
   type              = "egress"
   from_port         = 0
@@ -36,7 +46,7 @@ resource "aws_security_group_rule" "proxysql_ingress_2" {
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.webserver_sg.id
   security_group_id        = aws_security_group.proxysql_sg.id
-  description              = "ProxySQL access"
+  description              = "Webserver proxysql access"
 }
 
 resource "aws_security_group_rule" "proxysql_egress_1" {
@@ -55,16 +65,16 @@ resource "aws_security_group_rule" "rds_ingress_1" {
   to_port                  = 3306
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.proxysql_sg.id
-  security_group_id        = aws_security_group.webserver_sg.id
+  security_group_id        = aws_security_group.rds_sg.id
   description              = "ProxySQL access"
 }
 
 resource "aws_security_group_rule" "rds_egress_1" {
   type              = "egress"
-  from_port         = 3306
-  to_port           = 3306
+  from_port         = 0
+  to_port           = 0
   protocol          = "all"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.webserver_sg.id
-  description       = "Allow 3306 out"
+  security_group_id = aws_security_group.rds_sg.id
+  description       = "Allow all out"
 }
