@@ -3,9 +3,9 @@ variable "vpc" {
   description = "The VPC to use for your instances"
 }
 
-variable "subnet" {
-  type        = string
-  description = "The subnet to use for your instances"
+variable "subnets" {
+  type        = list
+  description = "The subnets available in the VPC"
 }
 
 variable "my_ip_address" {
