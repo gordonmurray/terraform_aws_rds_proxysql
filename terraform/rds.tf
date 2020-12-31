@@ -3,6 +3,18 @@ resource "random_password" "password" {
   special = true
 }
 
+resource "aws_db_subnet_group" "default" {
+  name = "rds_subnet_group"
+  subnet_ids = [
+    var.subnet,
+    "subnet-095f5d20e23934569"
+  ]
+
+  tags = {
+    Name = "RDS subnet group"
+  }
+}
+
 resource "aws_db_instance" "default" {
   identifier             = "my-database"
   allocated_storage      = 20
@@ -18,4 +30,5 @@ resource "aws_db_instance" "default" {
   storage_encrypted      = false
   multi_az               = false
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  db_subnet_group_name   = aws_db_subnet_group.default.name
 }
