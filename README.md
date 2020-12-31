@@ -1,28 +1,40 @@
 # Terraform ProxySQL RDS
 
- A development environment which includes a webserver, a proxysql instance and an RDS instance for testing/development.
+ A development environment which includes a webserver, a proxysql instance and an RDS instance for testing and experimentation with ProxySQL.
 
- ## Configuration
+ First, Terraform is used to:
+ 
+ * Generate a password for the RDS instance and store it in AWS secrets manager
+ * Create 2 EC2 instances 
+ * Create an RDS instance including 1 read replica, using the password from secrets manager
 
-Create an encrypted file using ansible-vault. This is to load the ec2_aws plugin so Ansible can identify your EC2 instances dynamically:
+ Then, Ansible is used to:
+ 
+ * Configure one EC2 instance as a webserver
+ * Configure the other EC2 instance as a ProxySQL instance
+ * Set up some test data on the RDS instance 
 
-> ansible-vault create aws_ec2.yml
+ ## You will need
 
-You will be asked to set and confirm a password. Add the following content to the aws_ec2.yml file, adding your AWS access key and secret
+ * AWS access key and secret with permission to create EC2 instances, RDS instances and read/write to AWS Secrets Manager
 
-```
-plugin: aws_ec2
-regions:
-  - eu-west-1
-filters:
-  tag:Name: webserver
-aws_access_key_id: [ your aws access key ]
-aws_secret_access_key: [ your aws secret key ]
-```
+ ## Create the infrastructure
 
- Run the Ansible playbook to configure the webserver, proxysql and the RDS instance:
+ > terraform apply
 
-> ansible-playbook -i aws_ec2.yml playbook.yml --ask-vault-pass
+ ## Initial configuration
+
+ * Update webserver_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'webserver'
+ * Update proxysql_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'proxysql'
+
+ Run the Ansible playbook to configure the webserver:
+
+ > ansible-playbook -i webserver_aws_ec2.yml webserver.yml  
+
+ Run the Ansible playbook to configure the proxysql instance:
+
+ > ansible-playbook -i proxysql_aws_ec2.yml proxysql.yml  
+
 
 ## Cost estimate, provided by Infracost:
 
