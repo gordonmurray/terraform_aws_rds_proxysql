@@ -1,0 +1,8 @@
+- name: Install Apache
+  vars:
+    packages:
+      - apache2
+  apt:
+    pkg: "{{ packages }}"
+    update_cache: yes
+    state: latest

@@ -1,23 +1,30 @@
 # Terraform ProxySQL RDS
 
- A development environment with a webserver, a proxysql instance and an RDS instance for testing/development 
+ A development environment which includes a webserver, a proxysql instance and an RDS instance for testing/development.
 
+ ## Configuration
 
+Create an encrypted file using ansible-vault. This is to load the ec2_aws plugin so Ansible can identify your EC2 instances dynamically:
 
+> ansible-vault create aws_ec2.yml
 
- # Configuration
+You will be asked to set and confirm a password. Add the following content to the aws_ec2.yml file, adding your AWS access key and secret
 
- Run the Ansible playbook th configure the webserver, proxysql and the RDS instance.
+```
+plugin: aws_ec2
+regions:
+  - eu-west-1
+filters:
+  tag:Name: webserver
+aws_access_key_id: [ your aws access key ]
+aws_secret_access_key: [ your aws secret key ]
+```
 
- > ansible-playbook -i aws_ec2.yml playbook.yml --ask-vault-pass  
+ Run the Ansible playbook to configure the webserver, proxysql and the RDS instance:
 
---------------------
+> ansible-playbook -i aws_ec2.yml playbook.yml --ask-vault-pass
 
-If Terraform gives an error related to a secret with this name is already scheduled for deletion:
-
-> aws secretsmanager delete-secret --secret-id rds_admin --force-delete-without-recovery --region eu-west-1
-
-## Cost estimate in eu-west-1, provided by Infracost:
+## Cost estimate, provided by Infracost:
 
 ```
   NAME                                       MONTHLY QTY  UNIT         PRICE   HOURLY COST  MONTHLY COST  
@@ -55,3 +62,10 @@ Please watch/star https://github.com/infracost/infracost as new resources are ad
 1 x aws_secretsmanager_secret_version
 1 x aws_secretsmanager_secret
 ```
+
+
+## Troubleshooting
+
+If Terraform gives an error related to a secret with this name is already scheduled for deletion use the following to force deleting the secret:
+
+> aws secretsmanager delete-secret --secret-id rds_admin --force-delete-without-recovery --region eu-west-1
