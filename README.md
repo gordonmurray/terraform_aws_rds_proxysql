@@ -1,6 +1,8 @@
 # Terraform ProxySQL RDS
 
+ A development environment with a webserver, a proxysql instance and an RDS instance for testing/development 
 
+--------------------
 
 If Terraform gives an error related to a secret with this name is already scheduled for deletion:
 
