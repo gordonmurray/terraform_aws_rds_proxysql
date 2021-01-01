@@ -27,7 +27,7 @@
  * Update webserver_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'webserver'
  * Update proxysql_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'proxysql'
 
-Run the Ansubke playbook to configure the RDS instance:
+Run the Ansible playbook to configure the RDS instance:
 
 > ansible-playbook rds.yml
 
