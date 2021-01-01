@@ -1,5 +1,5 @@
 ---
-- name: Add a user to the database
+- name: Add an application user to the database
   mysql_user:
     login_host: "127.0.0.1"
     login_user: "{{ rds_details.username }}"
@@ -8,4 +8,15 @@
     name: "app_user"
     password: "app_password"
     priv: "*.*:SELECT"
+    state: present
+
+- name: Add a proxymonitor user to the database
+  mysql_user:
+    login_host: "127.0.0.1"
+    login_user: "{{ rds_details.username }}"
+    login_port: "3307"
+    login_password: "{{ rds_details.password }}"
+    name: "proxymonitor"
+    password: "monitorpassword"
+    priv: "*.*:USAGE"
     state: present
