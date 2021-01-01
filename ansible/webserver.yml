@@ -1,4 +1,6 @@
 ---
+# This playbook will set up an EC2 instance with a tag of Name = webserver
+# It will install Apache, PHP and a single PHP script called Adminer to allow querying the database
 - hosts: all
 
   gather_facts: no

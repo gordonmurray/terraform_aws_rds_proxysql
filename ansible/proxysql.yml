@@ -1,4 +1,6 @@
 ---
+# This playbook will set up an EC2 instance with a tag of Name = proxysql
+# It will install Proxysql with a hostgroup, host and user created by other steps in this project
 - hosts: all
 
   gather_facts: no
