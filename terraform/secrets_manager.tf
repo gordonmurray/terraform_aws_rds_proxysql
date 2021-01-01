@@ -9,7 +9,7 @@ resource "aws_secretsmanager_secret" "rds_secret" {
   }
 }
 
-# Store the json in Secrets Manager
+# Store the RDS details in Secrets Manager in json format
 resource "aws_secretsmanager_secret_version" "secret" {
   secret_id = aws_secretsmanager_secret.rds_secret.id
   secret_string = jsonencode(
