@@ -1,0 +1,9 @@
+---
+- name: Create a database called app_database
+  community.mysql.mysql_db:
+    login_host: "127.0.0.1"
+    login_user: "{{ rds_details.username }}"
+    login_port: "3307"
+    login_password: "{{ rds_details.password }}"
+    name: app_database
+    state: present
