@@ -1,7 +1,6 @@
-
-resource "aws_secretsmanager_secret" "example" {
-  name                    = "rds_admin"
-  description             = "RDS Admin password"
+resource "aws_secretsmanager_secret" "rds_secret" {
+  name                    = "rds"
+  description             = "RDS details"
   recovery_window_in_days = 14
 
   tags = {
@@ -10,7 +9,14 @@ resource "aws_secretsmanager_secret" "example" {
   }
 }
 
+# Store the json in Secrets Manager
 resource "aws_secretsmanager_secret_version" "secret" {
-  secret_id     = aws_secretsmanager_secret.example.id
-  secret_string = random_password.password.result
+  secret_id = aws_secretsmanager_secret.rds_secret.id
+  secret_string = jsonencode(
+    {
+      "host"     = aws_db_instance.database_main.address,
+      "username" = "admin",
+      "password" = random_password.password.result
+    }
+  )
 }
