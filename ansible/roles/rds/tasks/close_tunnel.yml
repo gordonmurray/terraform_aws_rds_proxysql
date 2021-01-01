@@ -1,0 +1,3 @@
+---
+- name: "Kill SSH tunnel"
+  shell: ps axuf | grep 3307 | grep ssh | awk '{print "kill -9 " $2}'

@@ -1,0 +1,17 @@
+---
+# This playbook will set up the RDS instance by tunnelling through the ProxySQL EC2 instance 
+# Using a tunnel is neccessary as the RDS is not publicly accessible and the security group only allows the ProxySQL instance to connect to it.
+- name: Set up database items
+
+  gather_facts: false
+
+  hosts: localhost
+  
+  connection: local
+
+  vars:
+    # look up the RDS instance details from AWS Secrets Manager
+    rds_details: "{{ lookup('aws_secret', 'rds') }}"
+
+  roles:
+  - rds
