@@ -27,17 +27,19 @@
  * Update webserver_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'webserver'
  * Update proxysql_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'proxysql'
 
-Run the Ansible playbook to configure the RDS instance:
+Run the Ansible playbook to configure the RDS instance, it will create a database and a user:
 
 > ansible-playbook rds.yml
 
-Run the Ansible playbook to configure the webserver:
+Run the Ansible playbook to configure the webserver, it will install Apache, PHP and adminer:
 
  > ansible-playbook -i webserver_aws_ec2.yml webserver.yml  
 
-Run the Ansible playbook to configure the proxysql instance:
+Run the Ansible playbook to configure the proxysql instance, it will add a hostgroup, host and user:
 
  > ansible-playbook -i proxysql_aws_ec2.yml proxysql.yml  
+
+ Once the above have been run, you can connect to the database via the proxy address, using Adminer on the webserver at http://{webserver_public_ip}/adminer.php
 
 ## Cost estimate, provided by Infracost:
 
