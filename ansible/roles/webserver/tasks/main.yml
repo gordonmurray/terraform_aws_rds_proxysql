@@ -1,9 +1,16 @@
 ---
-- name: Install Apache
+- name: Install Apache, PHP
   vars:
     packages:
       - apache2
+      - php
+      - php-mysql
   apt:
     pkg: "{{ packages }}"
     update_cache: yes
     state: latest
+
+- name: Copy Adminer
+  copy:
+    src: adminer.php
+    dest: /var/www/html/adminer.php
