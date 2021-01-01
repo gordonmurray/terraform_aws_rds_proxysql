@@ -6,7 +6,7 @@
     hostname: "{{ item.hostname }}"
     hostgroup_id: "{{ item.hostgroup_id }}"
     max_connections: "{{ item.max_connections | default('1000') }}"
-    max_replication_lag: "{{ item.max_replication_lag | default('45000') }}"
+    max_replication_lag: "{{ item.max_replication_lag | default('5000') }}"
     weight: "{{ item.weight | default('1') }}"
     compression: "0"
     state: present
@@ -20,6 +20,11 @@
       }
     - {
         hostname: "{{ rds_details.host }}",
+        hostgroup_id: "101",
+        comment: "Read hostgroup",
+      }
+    - {
+        hostname: "{{ rds_details.host_replica }}",
         hostgroup_id: "101",
         comment: "Read hostgroup",
       }
