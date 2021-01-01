@@ -7,7 +7,7 @@
     login_password: "{{ rds_details.password }}"
     name: "app_user"
     password: "app_password"
-    priv: "*.*:SELECT"
+    priv: "*.*:SELECT,INSERT,UPDATE,DELETE,RELOAD,PROCESS,REFERENCES,INDEX,SHOW DATABASES,CREATE TEMPORARY TABLES,LOCK TABLES,SHOW VIEW,EVENT,REPLICATION CLIENT,TRIGGER"
     state: present
 
 - name: Add a proxymonitor user to the database
