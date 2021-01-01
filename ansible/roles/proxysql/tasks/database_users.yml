@@ -1,0 +1,21 @@
+---
+- name: Add ProxySQL Users
+  proxysql_mysql_users:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+
+    username: "{{ item.username }}"
+    password: "{{ item.password }}"
+    default_hostgroup: "{{ item.default_hostgroup }}"
+    max_connections: "{{ item.max_connections | default('1000') }}"
+    state: present
+    active: true
+    load_to_runtime: true
+    save_to_disk: true
+  with_items:
+    - {
+        username: "app_user",
+        password: "app_password",
+        default_hostgroup: "100",
+        max_connections: "1000",
+      }

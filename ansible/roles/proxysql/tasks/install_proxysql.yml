@@ -14,7 +14,7 @@
     name: pymysql
     state: present
 
-- name: Install a .deb package from the internet
+- name: Install percona .deb package from their site
   apt:
     deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 

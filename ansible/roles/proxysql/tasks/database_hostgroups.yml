@@ -1,0 +1,15 @@
+---
+# Hostgroups are for breaking databases in to groups
+- name: Add ProxySQL Hostgroups
+  proxysql_replication_hostgroups:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+
+    writer_hostgroup: "{{ item.writer_hostgroup }}"
+    reader_hostgroup: "{{ item.reader_hostgroup }}"
+    comment: "{{ item.comment }}"
+    state: present
+    load_to_runtime: true
+    save_to_disk: true
+  with_items:
+    - { writer_hostgroup: "100", reader_hostgroup: "101", comment: "my-database hostgroup" }

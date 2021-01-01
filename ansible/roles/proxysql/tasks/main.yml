@@ -1,2 +1,10 @@
 ---
 - import_tasks: install_proxysql.yml
+
+- import_tasks: global_variables.yml
+
+- import_tasks: database_hostgroups.yml
+
+- import_tasks: database_hosts.yml
+
+- import_tasks: database_users.yml

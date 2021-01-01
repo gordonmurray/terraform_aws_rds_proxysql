@@ -1,0 +1,4 @@
+- name: Restart proxysql
+  ansible.builtin.service:
+    name: proxysql
+    state: restarted

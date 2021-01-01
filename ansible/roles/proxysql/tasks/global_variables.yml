@@ -1,0 +1,65 @@
+# Any changes here means ProxySQL must be restarted
+# https://github.com/sysown/proxysql/wiki/Global-variables
+
+- name: Set interfaces
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-interfaces"
+    value: "0.0.0.0:3306;/var/lib/proxysql/proxysql.sock"
+  notify:
+    - Restart proxysql
+
+- name: Set desired number of threads (should match number of CPUs)
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-threads"
+    value: "2"
+  notify:
+    - Restart proxysql
+
+- name: Set max connections
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-max_connections"
+    value: "1000"
+  notify:
+    - Restart proxysql
+
+- name: Set timeout
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-long_query_time"
+    value: "1000"
+  notify:
+    - Restart proxysql
+
+- name: Set monitor username
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-monitor_username"
+    value: "proxymonitor"
+  notify:
+    - Restart proxysql
+
+- name: Set monitor password
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-monitor_password"
+    value: "{{ proxysql_monitor_password }}"
+  notify:
+    - Restart proxysql
+
+- name: Set monitor interval to 30s
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-monitor_connect_interval"
+    value: "30000"
+  notify:
+    - Restart proxysql

@@ -7,5 +7,11 @@
 
   user: ubuntu
 
+  vars:
+    proxysql_admin_password: admin
+    proxysql_monitor_password: monitorpassword
+    # look up the RDS instance details from AWS Secrets Manager
+    rds_details: "{{ lookup('aws_secret', 'rds') }}"
+
   roles:
     - proxysql

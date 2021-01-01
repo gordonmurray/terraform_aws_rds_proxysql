@@ -1,0 +1,25 @@
+---
+- name: Add ProxySQL backend servers
+  proxysql_backend_servers:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    hostname: "{{ item.hostname }}"
+    hostgroup_id: "{{ item.hostgroup_id }}"
+    max_connections: "{{ item.max_connections | default('1000') }}"
+    max_replication_lag: "{{ item.max_replication_lag | default('45000') }}"
+    weight: "{{ item.weight | default('1') }}"
+    compression: "0"
+    state: present
+    load_to_runtime: true
+    save_to_disk: true
+  with_items:
+    - {
+        hostname: "{{ rds_details.host }}",
+        hostgroup_id: "100",
+        comment: "Write hostgroup",
+      }
+    - {
+        hostname: "{{ rds_details.host }}",
+        hostgroup_id: "101",
+        comment: "Read hostgroup",
+      }
