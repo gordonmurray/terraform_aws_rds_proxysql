@@ -85,4 +85,4 @@ Please watch/star https://github.com/infracost/infracost as new resources are ad
 
 If Terraform gives an error related to a secret with this name is already scheduled for deletion use the following to force deleting the secret:
 
-> aws secretsmanager delete-secret --secret-id rds_admin --force-delete-without-recovery --region eu-west-1
+> aws secretsmanager delete-secret --secret-id rds --force-delete-without-recovery --region eu-west-1
