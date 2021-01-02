@@ -63,3 +63,38 @@
     value: "30000"
   notify:
     - Restart proxysql
+
+# Logging stuff
+# https://github.com/sysown/proxysql/wiki/Query-Logging
+
+- name: Enabled logging globally
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-eventslog_filename"
+    value: "queries.log"
+  notify:
+    - Restart proxysql
+
+- name: Set logging format to JSON
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-eventslog_format"
+    value: "2"
+  notify:
+    - Restart proxysql
+
+- name: Rules to log ALL queries
+  proxysql_query_rules:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    apply: no
+    active: 1
+    state: present
+    comment: "Logging all queries"
+    error_msg: "Somethings wrong with a logging rule"
+    rule_id: "1"
+    match_digest: "."
+    log: "1"
+    load_to_runtime: True
