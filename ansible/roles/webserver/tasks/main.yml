@@ -5,6 +5,7 @@
       - apache2
       - php
       - php-mysql
+      - mariadb-client
   apt:
     pkg: "{{ packages }}"
     update_cache: yes
