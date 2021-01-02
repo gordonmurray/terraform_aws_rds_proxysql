@@ -2,6 +2,7 @@
 - name: Gather information about the ProxySQL instance based on its name tag
   community.aws.ec2_instance_info:
     filters:
+      instance-state-name: ["running"]
       "tag:Name": proxysql
   register: proxysql_info
 
@@ -9,4 +10,4 @@
   shell: ps axuf | grep 3307 | grep ssh | awk '{print "kill -9 " $1}'
 
 - name: Create an SSH tunnel to the database through the ProxySQL instance
-  shell: "ssh -o StrictHostKeyChecking=no -f ubuntu@{{ proxysql_info.instances[0].network_interfaces[0].association.public_ip }} -L 3307:{{ rds_details.host }}:3306 -N"
+  shell: "ssh -o StrictHostKeyChecking=no -f ubuntu@{{ proxysql_info.instances[0].public_ip_address }} -L 3307:{{ rds_details.host }}:3306 -N"
