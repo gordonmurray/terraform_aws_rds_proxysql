@@ -67,7 +67,7 @@
 # Logging stuff
 # https://github.com/sysown/proxysql/wiki/Query-Logging
 
-- name: Enabled logging globally
+- name: Log file name
   proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
@@ -85,6 +85,15 @@
   notify:
     - Restart proxysql
 
+- name: Enable logging globally
+  proxysql_global_variables:
+    login_user: "admin"
+    login_password: "{{ proxysql_admin_password }}"
+    variable: "mysql-eventslog_default_log"
+    value: "1"
+  notify:
+    - Restart proxysql
+
 - name: Rules to log ALL queries
   proxysql_query_rules:
     login_user: "admin"
@@ -92,8 +101,6 @@
     apply: no
     active: 1
     state: present
-    comment: "Logging all queries"
-    error_msg: "Somethings wrong with a logging rule"
     rule_id: "1"
     match_digest: "."
     log: "1"
