@@ -38,13 +38,14 @@ resource "aws_db_instance" "database_main" {
 }
 
 resource "aws_db_instance" "database_replica" {
-  identifier            = "my-database-replica"
-  instance_class        = "db.t2.micro"
-  copy_tags_to_snapshot = true
-  publicly_accessible   = false
-  skip_final_snapshot   = true
-  storage_encrypted     = true
-  replicate_source_db   = aws_db_instance.database_main.identifier
+  identifier              = "my-database-replica"
+  instance_class          = "db.t2.micro"
+  copy_tags_to_snapshot   = true
+  publicly_accessible     = false
+  skip_final_snapshot     = true
+  storage_encrypted       = true
+  backup_retention_period = 1
+  replicate_source_db     = aws_db_instance.database_main.identifier
 
   tags = {
     Name  = "my-database-replica"
