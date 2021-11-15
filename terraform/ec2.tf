@@ -8,6 +8,11 @@ resource "aws_instance" "webserver" {
     Name  = "webserver"
     group = "terraform_proxy_rds"
   }
+
+  metadata_options {
+    http_tokens   = "required"
+    http_endpoint = "enabled"
+  }
 }
 
 resource "aws_instance" "proxysql" {
@@ -19,5 +24,10 @@ resource "aws_instance" "proxysql" {
   tags = {
     Name  = "proxysql"
     group = "terraform_proxy_rds"
+  }
+
+  metadata_options {
+    http_tokens   = "required"
+    http_endpoint = "enabled"
   }
 }

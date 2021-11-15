@@ -25,9 +25,9 @@ resource "aws_db_instance" "database_main" {
   parameter_group_name    = "default.mariadb10.3"
   skip_final_snapshot     = true
   publicly_accessible     = false
-  storage_encrypted       = false
+  storage_encrypted       = true
   multi_az                = false
-  backup_retention_period = 1
+  backup_retention_period = 7
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   db_subnet_group_name    = aws_db_subnet_group.default.name
 
@@ -43,7 +43,7 @@ resource "aws_db_instance" "database_replica" {
   copy_tags_to_snapshot = true
   publicly_accessible   = false
   skip_final_snapshot   = true
-  storage_encrypted     = false
+  storage_encrypted     = true
   replicate_source_db   = aws_db_instance.database_main.identifier
 
   tags = {

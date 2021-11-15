@@ -1,4 +1,5 @@
 resource "aws_secretsmanager_secret" "rds_secret" {
+  kms_key_id              = aws_kms_key.default.key_id
   name                    = "rds"
   description             = "RDS details"
   recovery_window_in_days = 14

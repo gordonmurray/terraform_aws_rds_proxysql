@@ -4,7 +4,7 @@ variable "vpc" {
 }
 
 variable "subnets" {
-  type        = list
+  type        = list(any)
   description = "The subnets available in the VPC"
 }
 
