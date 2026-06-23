@@ -1,0 +1,22 @@
+# Findings that are intentional for this disposable test environment.
+# Each is accepted on purpose for the reason given.
+
+# Webserver and ProxySQL need outbound 80/443/53 to reach public package
+# mirrors and to download Adminer. There's no NAT gateway in this single-VPC
+# demo, so that egress is to 0.0.0.0/0 on those ports by design.
+AVD-AWS-0104
+
+# RDS deletion protection is left off so the environment tears down cleanly
+# (see #18) — this is a throwaway stack, not production.
+AVD-AWS-0177
+
+# Performance Insights is left off to keep the demo on free micro instances.
+AVD-AWS-0133
+
+# The toolchain image is an interactive CLI that bind-mounts the host repo,
+# so it runs as root to match the host user's files.
+AVD-DS-0002
+
+# The toolchain image is a CLI, not a long-running service, so it has no
+# HEALTHCHECK.
+AVD-DS-0026
