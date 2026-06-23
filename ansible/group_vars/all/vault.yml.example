@@ -1,0 +1,15 @@
+---
+# Copy this file to vault.yml and encrypt it, then set real passwords:
+#
+#   cd ansible
+#   cp group_vars/all/vault.yml.example group_vars/all/vault.yml
+#   ansible-vault encrypt group_vars/all/vault.yml
+#
+# Run the playbooks with --ask-vault-pass (or --vault-password-file). The real
+# vault.yml is gitignored so the secrets never get committed.
+#
+# The app and monitor passwords are used both when creating the RDS users and
+# when ProxySQL connects through to RDS, so each one is set once here.
+vault_proxysql_admin_password: "change-me-proxysql-admin"
+vault_app_user_password: "change-me-app-user"
+vault_monitor_user_password: "change-me-monitor-user"

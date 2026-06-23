@@ -41,6 +41,17 @@
 
  The dynamic inventories (`webserver_aws_ec2.yml` and `proxysql_aws_ec2.yml`) find the EC2 instances by their `Name` tag. They use your normal AWS credentials from the standard chain — export `AWS_PROFILE` (or `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`), the same as Terraform — so there's nothing to paste into the files.
 
+ The ProxySQL admin, application-user and monitor-user passwords come from an Ansible Vault file rather than being hardcoded. Set them up once:
+
+ ```
+ cd ansible
+ cp group_vars/all/vault.yml.example group_vars/all/vault.yml
+ # edit group_vars/all/vault.yml and set real passwords, then encrypt it:
+ ansible-vault encrypt group_vars/all/vault.yml
+ ```
+
+ Then pass `--ask-vault-pass` (or `--vault-password-file`) to the `ansible-playbook` commands below. The real `vault.yml` is gitignored.
+
 Run the Ansible playbook to configure the RDS instance, it will create a database and a user:
 
 > ansible-playbook rds.yml

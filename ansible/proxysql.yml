@@ -10,8 +10,8 @@
   user: ubuntu
 
   vars:
-    proxysql_admin_password: admin
-    proxysql_monitor_password: monitorpassword
+    # proxysql_admin_password and proxysql_monitor_password come from
+    # group_vars/all (backed by Ansible Vault) — see group_vars/all/vault.yml.example
     # look up the RDS instance details from AWS Secrets Manager
     rds_details: "{{ lookup('aws_secret', 'rds') }}"
 
