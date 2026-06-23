@@ -6,15 +6,12 @@
 - name: Install prerequisites
   ansible.builtin.apt:
     pkg:
-      - python3-pip
       - lsb-release
       - ca-certificates
-    state: present
-
-- name: Make sure pymysql is present
-  become: true
-  ansible.builtin.pip:
-    name: pymysql
+      # PyMySQL is needed by the community.proxysql modules. Install it from
+      # apt rather than pip — Ubuntu 24.04 marks the system Python as
+      # externally managed (PEP 668), so pip install fails.
+      - python3-pymysql
     state: present
 
 - name: Get the Ubuntu codename

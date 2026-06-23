@@ -10,8 +10,8 @@
   connection: local
 
   vars:
-    # look up the RDS instance details from AWS Secrets Manager
-    rds_details: "{{ lookup('amazon.aws.aws_secret', 'rds') }}"
+    # look up the RDS instance details from AWS Secrets Manager (JSON secret)
+    rds_details: "{{ lookup('amazon.aws.aws_secret', 'rds') | from_json }}"
 
   roles:
   - rds
