@@ -21,6 +21,12 @@
 
  ## Create the infrastructure
 
+ Set `ssh_public_key_path` to an SSH public key on your machine so it can be registered as the EC2 key pair. The easiest way is a gitignored `terraform.tfvars`:
+
+ ```
+ ssh_public_key_path = "~/.ssh/id_rsa.pub"
+ ```
+
  > terraform apply
 
  ## Initial configuration
