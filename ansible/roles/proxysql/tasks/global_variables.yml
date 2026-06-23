@@ -28,7 +28,7 @@
   notify:
     - Restart proxysql
 
-- name: Set timeout
+- name: Set the slow query log threshold (ms)
   community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
@@ -55,7 +55,7 @@
   notify:
     - Restart proxysql
 
-- name: Set monitor interval to 30s
+- name: Set the monitor connect interval to 30s
   community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
