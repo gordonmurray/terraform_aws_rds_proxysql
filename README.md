@@ -4,9 +4,9 @@
 
  First, Terraform is used to:
  
+ * Generate a password for the RDS instance and store it in AWS Secrets Manager
  * Create 2 EC2 instances 
- * Create an RDS instance including 1 read replica, letting RDS create and rotate the master password in its own Secrets Manager secret
- * Store the RDS connection details (and a pointer to that managed secret) in a Secrets Manager secret for Ansible to read
+ * Create an RDS instance including 1 read replica, using the password from Secrets Manager
 
  Then, Ansible is used to:
  
