@@ -1,6 +1,6 @@
 ---
 - name: Add an application user to the database
-  mysql_user:
+  community.mysql.mysql_user:
     login_host: "127.0.0.1"
     login_user: "{{ rds_details.username }}"
     login_port: "3307"
@@ -12,7 +12,7 @@
     state: present
 
 - name: Add a proxymonitor user to the database
-  mysql_user:
+  community.mysql.mysql_user:
     login_host: "127.0.0.1"
     login_user: "{{ rds_details.username }}"
     login_port: "3307"

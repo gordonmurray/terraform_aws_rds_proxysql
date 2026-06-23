@@ -1,10 +1,10 @@
 ---
 - name: Run the equivalent of "apt-get update"
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
 
 - name: Install prerequisites
-  apt:
+  ansible.builtin.apt:
     pkg:
       - python3-pip
       - lsb-release
@@ -13,29 +13,29 @@
 
 - name: Make sure pymysql is present
   become: true
-  pip:
+  ansible.builtin.pip:
     name: pymysql
     state: present
 
 - name: Get the Ubuntu codename
-  command: lsb_release -sc
+  ansible.builtin.command: lsb_release -sc
   register: ubuntu_codename
   changed_when: false
 
 - name: Ensure the apt keyrings directory exists
-  file:
+  ansible.builtin.file:
     path: /etc/apt/keyrings
     state: directory
     mode: "0755"
 
 - name: Add the ProxySQL repository signing key
-  get_url:
+  ansible.builtin.get_url:
     url: https://repo.proxysql.com/ProxySQL/repo_pub_key
     dest: /etc/apt/keyrings/proxysql.asc
     mode: "0644"
 
 - name: Add the ProxySQL 3.0.x apt repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/proxysql.asc] https://repo.proxysql.com/ProxySQL/proxysql-3.0.x/{{ ubuntu_codename.stdout }}/ ./"
     state: present
     filename: proxysql
@@ -46,7 +46,7 @@
       - proxysql
       - net-tools
       - mysql-client-core-8.0
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ packages }}"
     update_cache: yes
     state: present

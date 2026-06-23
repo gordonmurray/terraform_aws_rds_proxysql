@@ -1,10 +1,10 @@
 ---
-- import_tasks: dependencies.yml
+- ansible.builtin.import_tasks: dependencies.yml
 
-- import_tasks: create_tunnel.yml
+- ansible.builtin.import_tasks: create_tunnel.yml
 
-- import_tasks: databases.yml
+- ansible.builtin.import_tasks: databases.yml
 
-- import_tasks: database_users.yml
+- ansible.builtin.import_tasks: database_users.yml
 
-- import_tasks: close_tunnel.yml
+- ansible.builtin.import_tasks: close_tunnel.yml

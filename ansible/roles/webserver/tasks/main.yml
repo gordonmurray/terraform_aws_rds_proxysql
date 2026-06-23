@@ -6,13 +6,13 @@
       - php
       - php-mysql
       - mariadb-client
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ packages }}"
     update_cache: yes
     state: latest
 
 - name: Download Adminer
-  get_url:
+  ansible.builtin.get_url:
     url: https://github.com/vrana/adminer/releases/download/v5.4.2/adminer-5.4.2.php
     dest: /var/www/html/adminer.php
     checksum: sha256:5b761efe7049bf586119256324fd417b49e5bb9243b40d9734fe86655e4402fd
