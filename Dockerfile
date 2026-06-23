@@ -19,7 +19,7 @@ ARG ANSIBLE_LINT_VERSION=26.4.0
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates curl unzip git openssh-client \
+        ca-certificates curl unzip git openssh-client procps \
     && rm -rf /var/lib/apt/lists/*
 
 # Terraform
