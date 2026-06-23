@@ -12,11 +12,10 @@ terraform {
 
 }
 
-# Configure the AWS Provider
+# Configure the AWS Provider. Credentials come from the standard chain
+# (AWS_PROFILE / environment / shared config), not hardcoded here.
 provider "aws" {
-  region                   = "eu-west-1"
-  shared_credentials_files = ["~/.aws/credentials"]
-  profile                  = "default"
+  region = var.region
 
   default_tags {
     tags = {

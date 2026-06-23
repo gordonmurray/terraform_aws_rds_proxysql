@@ -1,6 +1,10 @@
 # Copy this file to terraform.tfvars and fill in your own values.
 # terraform.tfvars is gitignored so your values stay out of version control.
 
+# AWS region. Optional — defaults to us-east-1. Keep AWS_REGION (for Ansible)
+# in sync with this.
+# region = "us-east-1"
+
 # The VPC the EC2 instances and RDS go into.
 vpc = "vpc-0123456789abcdef0"
 

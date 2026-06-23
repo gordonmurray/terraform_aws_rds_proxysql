@@ -33,6 +33,7 @@
 
  | Name | Type | Required | Description |
  |------|------|----------|-------------|
+ | `region` | string | no (default `us-east-1`) | AWS region to deploy into |
  | `vpc` | string | yes | VPC ID the EC2 instances and RDS go into |
  | `subnets` | list(string) | yes | Subnet IDs in that VPC (RDS needs at least two AZs) |
  | `my_ip_address` | string | yes | Your public IP; a `/32` SSH and HTTP allow rule is created for it |
@@ -45,7 +46,7 @@
 
  ## Initial configuration
 
- The dynamic inventories (`webserver_aws_ec2.yml` and `proxysql_aws_ec2.yml`) find the EC2 instances by their `Name` tag. They use your normal AWS credentials from the standard chain — export `AWS_PROFILE` (or `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`), the same as Terraform — so there's nothing to paste into the files.
+ The dynamic inventories (`webserver_aws_ec2.yml` and `proxysql_aws_ec2.yml`) find the EC2 instances by their `Name` tag. They use your normal AWS credentials from the standard chain — export `AWS_PROFILE` (or `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`) and `AWS_REGION`, the same as Terraform — so there's nothing to paste into the files. Set `AWS_REGION` to the same region as the Terraform `region` variable (default `us-east-1`).
 
  The ProxySQL admin, application-user and monitor-user passwords come from an Ansible Vault file rather than being hardcoded. Set them up once:
 
@@ -116,4 +117,4 @@ Please watch/star https://github.com/infracost/infracost as new resources are ad
 
 If Terraform gives an error related to a secret with this name is already scheduled for deletion use the following to force deleting the secret:
 
-> aws secretsmanager delete-secret --secret-id rds --force-delete-without-recovery --region eu-west-1
+> aws secretsmanager delete-secret --secret-id rds --force-delete-without-recovery --region "$AWS_REGION"
