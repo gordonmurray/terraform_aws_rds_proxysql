@@ -18,3 +18,8 @@ variable "ami" {
   default     = "ami-0aef57767f5404a3c"
   description = "The AMI to use for the EC2 instances"
 }
+
+variable "ssh_public_key_path" {
+  type        = string
+  description = "Path to the SSH public key to register as the EC2 key pair (e.g. ~/.ssh/id_rsa.pub or ~/.ssh/id_ed25519.pub)"
+}
