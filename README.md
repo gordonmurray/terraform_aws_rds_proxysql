@@ -39,8 +39,7 @@
 
  ## Initial configuration
 
- * Update webserver_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'webserver'
- * Update proxysql_aws_ec2.yml with your AWS access key and secret, so it can configure the webserver EC2 instance based on its tag of 'proxysql'
+ The dynamic inventories (`webserver_aws_ec2.yml` and `proxysql_aws_ec2.yml`) find the EC2 instances by their `Name` tag. They use your normal AWS credentials from the standard chain — export `AWS_PROFILE` (or `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`), the same as Terraform — so there's nothing to paste into the files.
 
 Run the Ansible playbook to configure the RDS instance, it will create a database and a user:
 
