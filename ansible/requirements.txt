@@ -1,0 +1,5 @@
+# Python packages the Ansible control node needs. Install with:
+#   pip install -r ansible/requirements.txt
+boto3       # amazon.aws inventory plugin and aws_secret lookup
+botocore
+PyMySQL     # community.mysql modules (mysqlclient is deprecated)
