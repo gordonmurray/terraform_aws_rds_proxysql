@@ -5,5 +5,5 @@ output "webserver" {
 
 output "proxysql" {
   value       = aws_instance.proxysql.public_ip
-  description = "The address of the webserver"
+  description = "The address of the ProxySQL instance"
 }
