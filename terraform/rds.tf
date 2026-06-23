@@ -19,7 +19,7 @@ resource "aws_db_instance" "database_main" {
   storage_type            = "gp2"
   engine                  = "mariadb"
   engine_version          = "11.4"
-  instance_class          = "db.t2.micro"
+  instance_class          = "db.t4g.micro"
   username                = "admin"
   password                = random_password.password.result
   parameter_group_name    = "default.mariadb11.4"
@@ -39,7 +39,7 @@ resource "aws_db_instance" "database_main" {
 
 resource "aws_db_instance" "database_replica" {
   identifier              = "my-database-replica"
-  instance_class          = "db.t2.micro"
+  instance_class          = "db.t4g.micro"
   copy_tags_to_snapshot   = true
   publicly_accessible     = false
   skip_final_snapshot     = true
