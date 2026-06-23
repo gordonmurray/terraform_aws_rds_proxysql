@@ -22,7 +22,7 @@ jobs:
       security-events: write
     steps:
       - name: Clone repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Run Trivy config scan
         # Pinned to a commit SHA — trivy-action tags were tampered with in early 2026.
