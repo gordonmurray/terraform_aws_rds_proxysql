@@ -10,8 +10,10 @@
   connection: local
 
   vars:
-    # look up the RDS instance details from AWS Secrets Manager
+    # look up the RDS connection details from AWS Secrets Manager
     rds_details: "{{ lookup('aws_secret', 'rds') }}"
+    # the master password lives in the RDS-managed secret that rds_details points at
+    rds_master_password: "{{ lookup('aws_secret', rds_details.master_secret_arn).password }}"
 
   roles:
   - rds
