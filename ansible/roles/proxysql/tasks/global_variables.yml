@@ -1,12 +1,30 @@
 # Any changes here means ProxySQL must be restarted
 # https://github.com/sysown/proxysql/wiki/Global-variables
 
+# A fresh ProxySQL ships with admin:admin. Rotate the admin password to the
+# vaulted value using the default login. On a re-run the default no longer
+# works (already rotated), so this is ignored and the later tasks use the
+# vaulted password.
+- name: Rotate the ProxySQL admin password to the vaulted value
+  community.proxysql.proxysql_global_variables:
+    login_user: "admin"
+    login_password: "admin"
+    variable: "admin-admin_credentials"
+    value: "admin:{{ proxysql_admin_password }}"
+    save_to_disk: true
+    load_to_runtime: true
+  failed_when: false
+  changed_when: false
+
 - name: Set interfaces
   community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-interfaces"
     value: "0.0.0.0:3306;/var/lib/proxysql/proxysql.sock"
+    # mysql-interfaces only applies at startup, so it must be on disk before
+    # the restart handler runs — otherwise the restart reloads the default.
+    save_to_disk: true
   notify:
     - Restart proxysql
 
