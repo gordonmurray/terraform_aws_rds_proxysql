@@ -6,8 +6,7 @@ terraform {
 
     aws = {
       source  = "hashicorp/aws"
-      version = "3.43.0"
-
+      version = "~> 6.0"
     }
   }
 
@@ -15,9 +14,9 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region                  = "eu-west-1"
-  shared_credentials_file = "~/.aws/credentials"
-  profile                 = "default"
+  region                   = "eu-west-1"
+  shared_credentials_files = ["~/.aws/credentials"]
+  profile                  = "default"
 
   default_tags {
     tags = {
