@@ -1,3 +1,10 @@
+resource "random_password" "password" {
+  length  = 16
+  special = true
+  # RDS rejects /, @, ", and spaces in the master password, so exclude them.
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
 resource "aws_db_subnet_group" "default" {
   name       = "rds_subnet_group"
   subnet_ids = var.subnets
@@ -9,24 +16,22 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "database_main" {
-  identifier        = "my-database"
-  allocated_storage = 20
-  storage_type      = "gp2"
-  engine            = "mariadb"
-  engine_version    = "11.4"
-  instance_class    = "db.t4g.micro"
-  username          = "admin"
-  # RDS creates the master password in its own Secrets Manager secret and
-  # rotates it, so Terraform never holds the value (retires random_password).
-  manage_master_user_password = true
-  parameter_group_name        = "default.mariadb11.4"
-  skip_final_snapshot         = true
-  publicly_accessible         = false
-  storage_encrypted           = true
-  multi_az                    = false
-  backup_retention_period     = 7
-  vpc_security_group_ids      = [aws_security_group.rds_sg.id]
-  db_subnet_group_name        = aws_db_subnet_group.default.name
+  identifier              = "my-database"
+  allocated_storage       = 20
+  storage_type            = "gp2"
+  engine                  = "mariadb"
+  engine_version          = "11.4"
+  instance_class          = "db.t4g.micro"
+  username                = "admin"
+  password                = random_password.password.result
+  parameter_group_name    = "default.mariadb11.4"
+  skip_final_snapshot     = true
+  publicly_accessible     = false
+  storage_encrypted       = true
+  multi_az                = false
+  backup_retention_period = 7
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  db_subnet_group_name    = aws_db_subnet_group.default.name
 
   tags = {
     Name  = "my-database-main"
