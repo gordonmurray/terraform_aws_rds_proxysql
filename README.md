@@ -27,13 +27,19 @@
  pre-commit install
  ```
 
+ ## Variables
+
+ Terraform needs a few inputs. Copy `terraform/terraform.tfvars.example` to `terraform/terraform.tfvars` (gitignored) and fill them in:
+
+ | Name | Type | Required | Description |
+ |------|------|----------|-------------|
+ | `vpc` | string | yes | VPC ID the EC2 instances and RDS go into |
+ | `subnets` | list(string) | yes | Subnet IDs in that VPC (RDS needs at least two AZs) |
+ | `my_ip_address` | string | yes | Your public IP; a `/32` SSH and HTTP allow rule is created for it |
+ | `ssh_public_key_path` | string | yes | Path to the SSH public key registered as the EC2 key pair |
+ | `disable_api_termination` | bool | no (default `false`) | Termination protection on the EC2 instances |
+
  ## Create the infrastructure
-
- Set `ssh_public_key_path` to an SSH public key on your machine so it can be registered as the EC2 key pair. The easiest way is a gitignored `terraform.tfvars`:
-
- ```
- ssh_public_key_path = "~/.ssh/id_rsa.pub"
- ```
 
  > terraform apply
 

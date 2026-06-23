@@ -1,0 +1,18 @@
+# Copy this file to terraform.tfvars and fill in your own values.
+# terraform.tfvars is gitignored so your values stay out of version control.
+
+# The VPC the EC2 instances and RDS go into.
+vpc = "vpc-0123456789abcdef0"
+
+# Subnets in that VPC. RDS needs at least two, in different availability zones.
+subnets = ["subnet-0123456789abcdef0", "subnet-0fedcba9876543210"]
+
+# Your public IP. A /32 ingress rule is created so only you can SSH in and
+# reach the webserver. Find it with: curl -s https://checkip.amazonaws.com
+my_ip_address = "203.0.113.10"
+
+# SSH public key to register as the EC2 key pair.
+ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+# Optional. Defaults to false so the environment tears down cleanly.
+# disable_api_termination = false
