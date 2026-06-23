@@ -1,0 +1,2 @@
+# Ansible Vault secrets — copy vault.yml.example to vault.yml and encrypt it.
+group_vars/all/vault.yml
