@@ -5,7 +5,7 @@
 #   docker run --rm -it -v "$PWD":/work -w /work terraform-aws-rds-proxysql-tools bash
 #
 # Or via the Makefile: `make tools-build`, then `make lint` / `make shell`.
-FROM python:3.12-slim-bookworm
+FROM python:3.14-slim-bookworm
 
 # Tool versions — bump deliberately. The image pins the tools;
 # .terraform.lock.hcl and ansible/requirements.yml pin the providers/collections.
