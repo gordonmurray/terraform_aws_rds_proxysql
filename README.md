@@ -16,6 +16,7 @@
 
  ## You will need
 
+ * Terraform >= 1.5 (OpenTofu also works — Terraform moved to the BSL licence at 1.6, OpenTofu is the open-source fork)
  * AWS access key and secret with permission to create EC2 instances, RDS instances and read/write to AWS Secrets Manager
 
  ## Create the infrastructure
