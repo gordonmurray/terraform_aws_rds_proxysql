@@ -18,11 +18,11 @@ resource "aws_db_instance" "database_main" {
   allocated_storage       = 20
   storage_type            = "gp2"
   engine                  = "mariadb"
-  engine_version          = "10.3.13"
+  engine_version          = "11.4"
   instance_class          = "db.t2.micro"
   username                = "admin"
   password                = random_password.password.result
-  parameter_group_name    = "default.mariadb10.3"
+  parameter_group_name    = "default.mariadb11.4"
   skip_final_snapshot     = true
   publicly_accessible     = false
   storage_encrypted       = true
