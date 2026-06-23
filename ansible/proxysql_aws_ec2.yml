@@ -1,5 +1,5 @@
+# Region comes from the AWS_REGION / AWS_DEFAULT_REGION environment variable
+# (or your AWS profile), matching the Terraform region.
 plugin: amazon.aws.aws_ec2
-regions:
-  - eu-west-1
 filters:
   tag:Name: proxysql
