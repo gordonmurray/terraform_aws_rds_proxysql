@@ -47,15 +47,17 @@ RUN curl -fsSL "https://github.com/infracost/infracost/releases/download/v${INFR
     && rm /tmp/infracost.tar.gz \
     && infracost --version
 
-# Ansible, ansible-lint, and the AWS SDK the aws_ec2 inventory plugin needs
+# Ansible, ansible-lint, and the Python deps the control node needs
+# (boto3/botocore for amazon.aws, PyMySQL for the community.mysql modules)
 RUN pip install --no-cache-dir \
         "ansible-core==${ANSIBLE_CORE_VERSION}" \
         "ansible-lint==${ANSIBLE_LINT_VERSION}" \
-        boto3 botocore
+        boto3 botocore PyMySQL
+
+# Bake the pinned Ansible collections into the image
+COPY ansible/requirements.yml /tmp/requirements.yml
+RUN ansible-galaxy collection install -r /tmp/requirements.yml && rm /tmp/requirements.yml
 
 WORKDIR /work
-
-# Once ansible/requirements.yml lands (#15), install the pinned collections:
-# RUN ansible-galaxy collection install -r ansible/requirements.yml
 
 CMD ["bash"]

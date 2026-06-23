@@ -29,6 +29,14 @@ place to try things out.
    pre-commit install
    ```
 
+5. Install the Ansible collections and Python deps the playbooks need (or use the toolchain
+   image with `make shell`, which already has them):
+
+   ```
+   ansible-galaxy collection install -r ansible/requirements.yml
+   pip install -r ansible/requirements.txt
+   ```
+
 ## Running it locally
 
 The `Makefile` wraps the whole flow:
