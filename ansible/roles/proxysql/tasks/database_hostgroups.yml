@@ -1,7 +1,7 @@
 ---
 # Hostgroups are for breaking databases in to groups
 - name: Add ProxySQL Hostgroups
-  proxysql_replication_hostgroups:
+  community.proxysql.proxysql_replication_hostgroups:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
 

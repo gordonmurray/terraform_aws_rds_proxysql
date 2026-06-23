@@ -1,6 +1,6 @@
 ---
 - name: Add ProxySQL backend servers
-  proxysql_backend_servers:
+  community.proxysql.proxysql_backend_servers:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     hostname: "{{ item.hostname }}"

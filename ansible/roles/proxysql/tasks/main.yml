@@ -1,10 +1,10 @@
 ---
-- import_tasks: install_proxysql.yml
+- ansible.builtin.import_tasks: install_proxysql.yml
 
-- import_tasks: global_variables.yml
+- ansible.builtin.import_tasks: global_variables.yml
 
-- import_tasks: database_hostgroups.yml
+- ansible.builtin.import_tasks: database_hostgroups.yml
 
-- import_tasks: database_hosts.yml
+- ansible.builtin.import_tasks: database_hosts.yml
 
-- import_tasks: database_users.yml
+- ansible.builtin.import_tasks: database_users.yml

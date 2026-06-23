@@ -2,7 +2,7 @@
 # https://github.com/sysown/proxysql/wiki/Global-variables
 
 - name: Set interfaces
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-interfaces"
@@ -11,7 +11,7 @@
     - Restart proxysql
 
 - name: Set desired number of threads (should match number of CPUs)
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-threads"
@@ -20,7 +20,7 @@
     - Restart proxysql
 
 - name: Set max connections
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-max_connections"
@@ -29,7 +29,7 @@
     - Restart proxysql
 
 - name: Set timeout
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-long_query_time"
@@ -38,7 +38,7 @@
     - Restart proxysql
 
 - name: Set monitor username
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-monitor_username"
@@ -47,7 +47,7 @@
     - Restart proxysql
 
 - name: Set monitor password
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-monitor_password"
@@ -56,7 +56,7 @@
     - Restart proxysql
 
 - name: Set monitor interval to 30s
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-monitor_connect_interval"
@@ -68,7 +68,7 @@
 # https://github.com/sysown/proxysql/wiki/Query-Logging
 
 - name: Log file name
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-eventslog_filename"
@@ -77,7 +77,7 @@
     - Restart proxysql
 
 - name: Set logging format to JSON
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-eventslog_format"
@@ -86,7 +86,7 @@
     - Restart proxysql
 
 - name: Enable logging globally
-  proxysql_global_variables:
+  community.proxysql.proxysql_global_variables:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     variable: "mysql-eventslog_default_log"
@@ -95,7 +95,7 @@
     - Restart proxysql
 
 - name: Rules to log ALL queries
-  proxysql_query_rules:
+  community.proxysql.proxysql_query_rules:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
     apply: no

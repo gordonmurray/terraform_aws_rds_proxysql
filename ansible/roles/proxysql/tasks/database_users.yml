@@ -1,6 +1,6 @@
 ---
 - name: Add ProxySQL Users
-  proxysql_mysql_users:
+  community.proxysql.proxysql_mysql_users:
     login_user: "admin"
     login_password: "{{ proxysql_admin_password }}"
 
