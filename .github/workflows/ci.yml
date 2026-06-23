@@ -24,3 +24,25 @@ jobs:
 
       - name: terraform init
         run: terraform -chdir=terraform init -backend=false
+
+  tflint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: terraform-linters/setup-tflint@v6.2.2
+        with:
+          tflint_version: latest
+
+      - name: tflint --init
+        run: tflint --init
+        working-directory: terraform
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Non-blocking for now — surfaces findings without gating merges.
+      # #22 will fold tflint into the required quality gate.
+      - name: tflint
+        run: tflint --format compact
+        working-directory: terraform
+        continue-on-error: true
