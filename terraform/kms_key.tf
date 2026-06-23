@@ -6,6 +6,6 @@ resource "aws_kms_key" "default" {
   enable_key_rotation     = true
 
   tags = {
-    Name = var.default_tag
+    Name = "rds-secrets"
   }
 }
