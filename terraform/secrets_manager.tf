@@ -1,8 +1,11 @@
 resource "aws_secretsmanager_secret" "rds_secret" {
-  kms_key_id              = aws_kms_key.default.key_id
-  name                    = "rds"
-  description             = "RDS details"
-  recovery_window_in_days = 14
+  kms_key_id  = aws_kms_key.default.key_id
+  name        = "rds"
+  description = "RDS details"
+  # 0 = delete immediately on destroy. This is a disposable test environment,
+  # so a recovery window just blocks re-applying with the same secret name
+  # ("scheduled for deletion") for days after a teardown.
+  recovery_window_in_days = 0
 
   tags = {
     Name  = "rds_admin"
