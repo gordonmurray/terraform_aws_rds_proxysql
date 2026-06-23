@@ -1,0 +1,27 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Terraform fmt and most YAML use two spaces
+[*.tf]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.php]
+indent_size = 4
+
+# Make recipes require real tabs
+[Makefile]
+indent_style = tab
+
+# Trailing spaces are significant in Markdown (line breaks)
+[*.md]
+trim_trailing_whitespace = false
