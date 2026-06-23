@@ -51,6 +51,14 @@ make validate    # terraform fmt -check, init and validate — no AWS access nee
 commit. CI runs `terraform fmt` and `init` on every pull request and must pass before a PR merges;
 `tflint` also runs in CI.
 
+If you'd rather not install the tools, there's a pinned toolchain image (see `Dockerfile`):
+
+```
+make tools-build   # build the image once
+make lint          # run tflint and ansible-lint in the container
+make shell         # shell into the container (AWS creds + SSH key mounted)
+```
+
 ## Opening a pull request
 
 - Branch off `main` (e.g. `fix/short-description`).
