@@ -3,9 +3,12 @@
   apt:
     update_cache: yes
 
-- name: Install pip3
+- name: Install prerequisites
   apt:
-    pkg: python3-pip
+    pkg:
+      - python3-pip
+      - lsb-release
+      - ca-certificates
     state: present
 
 - name: Make sure pymysql is present
@@ -14,14 +17,33 @@
     name: pymysql
     state: present
 
-- name: Install percona .deb package from their site
-  apt:
-    deb: https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+- name: Get the Ubuntu codename
+  command: lsb_release -sc
+  register: ubuntu_codename
+  changed_when: false
+
+- name: Ensure the apt keyrings directory exists
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Add the ProxySQL repository signing key
+  get_url:
+    url: https://repo.proxysql.com/ProxySQL/repo_pub_key
+    dest: /etc/apt/keyrings/proxysql.asc
+    mode: "0644"
+
+- name: Add the ProxySQL 3.0.x apt repository
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/proxysql.asc] https://repo.proxysql.com/ProxySQL/proxysql-3.0.x/{{ ubuntu_codename.stdout }}/ ./"
+    state: present
+    filename: proxysql
 
 - name: Install ProxySQL, MySQL client, Net tools
   vars:
     packages:
-      - proxysql2
+      - proxysql
       - net-tools
       - mysql-client-core-8.0
   apt:
