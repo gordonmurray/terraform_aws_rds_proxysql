@@ -19,6 +19,14 @@
  * Terraform >= 1.5 (OpenTofu also works — Terraform moved to the BSL licence at 1.6, OpenTofu is the open-source fork)
  * AWS access key and secret with permission to create EC2 instances, RDS instances and read/write to AWS Secrets Manager
 
+ ## Local checks
+
+ This repo uses [pre-commit](https://pre-commit.com) to run `terraform fmt`, `tflint`, `ansible-lint` and a few whitespace/end-of-file checks before each commit. Install it once after cloning:
+
+ ```
+ pre-commit install
+ ```
+
  ## Create the infrastructure
 
  Set `ssh_public_key_path` to an SSH public key on your machine so it can be registered as the EC2 key pair. The easiest way is a gitignored `terraform.tfvars`:
