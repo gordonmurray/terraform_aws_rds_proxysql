@@ -6,8 +6,11 @@
       "tag:Name": proxysql
   register: proxysql_info
 
-- name: "Kill previous SSH tunnel sessions if any"
-  ansible.builtin.shell: ps axuf | grep 3307 | grep ssh | awk '{print "kill -9 " $1}'
+- name: Kill any existing SSH tunnel on 3307
+  ansible.builtin.command: pkill -f "ssh.*3307"
+  register: tunnel_pkill
+  changed_when: tunnel_pkill.rc == 0
+  failed_when: tunnel_pkill.rc not in [0, 1]
 
 - name: Create an SSH tunnel to the database through the ProxySQL instance
   ansible.builtin.shell: "ssh -o StrictHostKeyChecking=no -f ubuntu@{{ proxysql_info.instances[0].public_ip_address }} -L 3307:{{ rds_details.host }}:3306 -N"

@@ -1,3 +1,6 @@
 ---
-- name: "Kill SSH tunnel"
-  ansible.builtin.shell: ps axuf | grep 3307 | grep ssh | awk '{print "kill -9 " $2}'
+- name: Kill the SSH tunnel on 3307
+  ansible.builtin.command: pkill -f "ssh.*3307"
+  register: tunnel_pkill
+  changed_when: tunnel_pkill.rc == 0
+  failed_when: tunnel_pkill.rc not in [0, 1]
