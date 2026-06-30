@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: terraform-linters/setup-tflint@v6.2.2
+      - uses: terraform-linters/setup-tflint@v6.3.0
         with:
           tflint_version: latest
 
