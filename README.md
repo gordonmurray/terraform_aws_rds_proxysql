@@ -103,11 +103,17 @@ When it's done, connect to the database through the proxy with Adminer at
 
 ```
 make validate    # terraform fmt -check, init and validate — no AWS access needed
+make test        # plan-level tests with the AWS provider mocked — no AWS access needed
 ```
 
+`make test` plans the whole stack with the AWS provider mocked, so it checks the things that
+should not quietly change — IMDSv2, encrypted volumes, the databases staying private, 3306
+reachable only between security groups — without credentials. It is what catches a provider
+upgrade that changes a default before it reaches a real apply.
+
 `pre-commit` runs `terraform fmt`, `tflint` and `ansible-lint` before each commit (`pre-commit install`).
-On every pull request, CI runs `terraform fmt`, `init` and `validate` (required), plus `tflint`, Trivy
-config scanning and `ansible-lint`.
+On every pull request, CI runs `terraform fmt`, `init`, `validate` and the tests (required), plus
+`tflint`, Trivy config scanning and `ansible-lint`.
 
 ## Cost
 
