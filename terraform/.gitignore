@@ -32,3 +32,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Throwaway key generated for terraform test, never a real one
+tests/fixtures/id_rsa
+tests/fixtures/id_rsa.pub

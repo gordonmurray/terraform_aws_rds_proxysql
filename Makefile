@@ -21,7 +21,7 @@ DOCKER_RUN = docker run --rm -v $(CURDIR):/work -w /work $(TOOLS_IMAGE)
 
 .DEFAULT_GOAL := help
 
-.PHONY: help fmt validate up configure down tools-build shell lint
+.PHONY: help fmt validate test up configure down tools-build shell lint
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -32,8 +32,16 @@ fmt: ## Format the Terraform files
 
 validate: ## Check formatting and validate the Terraform (no AWS access needed)
 	terraform -chdir=$(TF_DIR) fmt -check -recursive
-	terraform -chdir=$(TF_DIR) init -backend=false
+	terraform -chdir=$(TF_DIR) init -backend=false -lockfile=readonly
 	terraform -chdir=$(TF_DIR) validate
+
+# The AWS provider is mocked, so this needs no credentials. The key is only
+# there because terraform test evaluates file(), unlike terraform validate.
+test: ## Run the plan-level Terraform tests (no AWS access needed)
+	@mkdir -p $(TF_DIR)/tests/fixtures
+	@test -f $(TF_DIR)/tests/fixtures/id_rsa.pub || \
+		ssh-keygen -t ed25519 -N "" -C ci -f $(TF_DIR)/tests/fixtures/id_rsa
+	terraform -chdir=$(TF_DIR) test
 
 up: ## Create the infrastructure (terraform apply)
 	terraform -chdir=$(TF_DIR) init

@@ -53,6 +53,7 @@ Run `make help` to see all targets.
 
 ```
 make validate    # terraform fmt -check, init and validate — no AWS access needed
+make test        # plan-level tests with the AWS provider mocked — no AWS access needed
 ```
 
 `pre-commit` runs `terraform fmt`, `tflint`, `ansible-lint` and a few whitespace checks on every
@@ -71,5 +72,5 @@ make shell         # shell into the container (AWS creds + SSH key mounted)
 
 - Branch off `main` (e.g. `fix/short-description`).
 - Keep each PR focused on one change.
-- Make sure `make validate` passes and the pre-commit hooks are clean.
+- Make sure `make validate` and `make test` pass and the pre-commit hooks are clean.
 - Open the PR against `main` and describe what changed and why. CI must be green to merge.
